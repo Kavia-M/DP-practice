@@ -1,0 +1,49 @@
+// { Driver Code Starts
+#include <bits/stdc++.h>
+using namespace std;
+ 
+long long countWays(int);
+ 
+int main()
+{
+	int t;
+	cin >> t;
+	
+	while(t--)
+	{
+		int n;
+		cin>>n;
+		
+		cout << countWays(n) << endl;
+	}
+    
+    return 0;
+    
+}
+// } Driver Code Ends
+
+#define ll long long
+ll dp[100001];
+ll func(ll i,ll n);
+
+ll func(ll i,ll n)
+{
+    if(i>n) return 0;
+    if(i==n) return 1;
+    if(dp[i]!=(-1)) return dp[i];
+    
+    ll count=0;
+    for(ll j=1;j<=3;j++){
+        count=(count+func(i+j,n))%1000000007;
+    }
+    return dp[i]=count;
+}
+
+// function to count number of ways to reach top of the stair
+long long countWays(int n){
+    
+    memset(dp,-1,sizeof(dp[0])*100001);
+   
+    ll N=(ll)n;
+    return func(0,N)%1000000007;
+}
